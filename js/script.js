@@ -2,8 +2,9 @@ var Stargazer = Backbone.Model.extend();
 
 var Stargazers = Backbone.Collection.extend({
 	model: Stargazer,
+
 	initialize: function() {
-		//console.log("Stargazers: ", this);
+		console.log(this);
 	}
 });
 
@@ -46,10 +47,6 @@ var RepoView = Backbone.View.extend({
 var RepoListView = Backbone.View.extend({
 	tagName: 'ul',
 
-	initialize: function() {
-		//console.log(this);
-	},
-
 	render: function() {
 		this.collection.each(function(model) {
 			var repoView = new RepoView({model: model});
@@ -57,5 +54,13 @@ var RepoListView = Backbone.View.extend({
 		}, this);
 		return this;
 	}
+});
+
+var StargazerView = Backbone.View.extend({
+	tagName: 'li'
+});
+
+var StargazerListView = Backbone.View.extend({
+	tagName: 'ul'
 });
 
