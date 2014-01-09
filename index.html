@@ -9,9 +9,10 @@
 </head>
 <body>
 	<h1>Stargazers</h1>
+	<div id="list"></div>
 
-	<script type="text/template" id="some id">
-		<%=  %>
+	<script type="text/template" id="repo">
+		<a href="<%= html_url %>"><%= full_name %></a>
 	</script>
 
 	<script src="js/underscore.js"></script>
