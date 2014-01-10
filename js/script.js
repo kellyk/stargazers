@@ -16,7 +16,6 @@ var Repo = Backbone.Model.extend({
 });
 
 var Repos = Backbone.Collection.extend({
-	url: 'https://api.github.com/users/m1ck3y/repos?access_token=10838b19e7632b67bde25802235eac0e559ec8a2',
 	model: Repo
 });
 
@@ -48,7 +47,7 @@ var RepoListView = Backbone.View.extend({
 				$(repoView.render().el).append(stargazerListView.render().el);
 				that.$el.append(repoView.el);
 			}, 1000);
-			
+
 		}, this);
 		return this;
 	}
@@ -76,10 +75,14 @@ var StargazerListView = Backbone.View.extend({
 	}
 });
 
-
-var repos = new Repos();
-repos.fetch().complete(function() {
-	var repoListView = new RepoListView({collection: repos});
-	repoListView.render();
-	$('#list').html(repoListView.el);
+$('form').on('submit', function(e) {
+	e.preventDefault();
+	var url = 'https://api.github.com/users/'+e.target[0].value+'/repos?access_token=10838b19e7632b67bde25802235eac0e559ec8a2';
+	var repos = new Repos();
+	repos.url = url;
+	repos.fetch().complete(function() {
+		var repoListView = new RepoListView({collection: repos});
+		repoListView.render();
+		$('#list').html(repoListView.el);
+	});
 });
