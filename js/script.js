@@ -6,9 +6,12 @@ var Stargazers = Backbone.Collection.extend({
 
 var Repo = Backbone.Model.extend({
 	initialize: function() {
-		this.stargazers = new Stargazers();
-		this.stargazers.url = this.get('stargazers_url');
-		this.stargazers.fetch();
+		var that = this;
+		var stargazers = new Stargazers();
+		stargazers.url = this.get('stargazers_url');
+		stargazers.fetch().done(function() {
+			that.set('stargazers', stargazers);
+		});
 	}
 });
 
@@ -17,15 +20,9 @@ var Repos = Backbone.Collection.extend({
 	model: Repo
 });
 
-var repos = new Repos();
-repos.fetch().complete(function() {
-	var repoListView = new RepoListView({collection: repos});
-	repoListView.render();
-	$('#list').html(repoListView.el);
-});
-
 var RepoView = Backbone.View.extend({
 	tagName: 'li',
+	className: 'repo',
 	template: _.template($('#repo').html()),
 
 	initialize: function() {
@@ -44,8 +41,14 @@ var RepoListView = Backbone.View.extend({
 	render: function() {
 		this.$el.html("");
 		this.collection.each(function(model) {
-			var repoView = new RepoView({model: model});
-			this.$el.append(repoView.render().el);
+			var that = this;
+			setTimeout(function() {
+				var repoView = new RepoView({model: model});
+				var stargazerListView = new StargazerListView({collection: model.get('stargazers')});
+				$(repoView.render().el).append(stargazerListView.render().el);
+				that.$el.append(repoView.el);
+			}, 1000);
+			
 		}, this);
 		return this;
 	}
@@ -53,8 +56,11 @@ var RepoListView = Backbone.View.extend({
 
 var StargazerView = Backbone.View.extend({
 	tagName: 'li',
+	className: 'stargazer',
+	template: _.template($('#stargazer').html()),
 	render: function() {
-		this.$el.html(this.model.get("avatar_url"));
+		console.log(this.model);
+		this.$el.html(this.template(this.model.toJSON()));
 		return this;
 	}
 });
@@ -70,3 +76,10 @@ var StargazerListView = Backbone.View.extend({
 	}
 });
 
+
+var repos = new Repos();
+repos.fetch().complete(function() {
+	var repoListView = new RepoListView({collection: repos});
+	repoListView.render();
+	$('#list').html(repoListView.el);
+});

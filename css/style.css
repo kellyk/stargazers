@@ -1,0 +1,13 @@
+ul {
+	list-style: none;
+}
+
+.repo {
+	width: 100%;
+	clear: both;
+	height: 120px;
+}
+.stargazer {
+	float: left;
+	margin: 10px 10px 10px 0;
+}
