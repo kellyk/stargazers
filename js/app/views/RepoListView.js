@@ -2,8 +2,7 @@ define(['jquery', 'underscore', 'backbone', 'app/views/RepoView'], function($, _
 	'use strict';
 
 	var RepoListView = Backbone.View.extend({
-		el: $('#list'),
-		tagName: 'ul',
+		el: $('#repos'),
 
 		render: function() {
 			this.$el.html("");

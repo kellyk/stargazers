@@ -7,6 +7,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 		template: _.template($('#stargazer').html()),
 
 		render: function() {
+			console.log("Stargazer: ", this.model);
 			this.$el.html(this.template(this.model.toJSON()));
 			return this;
 		}

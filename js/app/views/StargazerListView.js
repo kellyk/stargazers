@@ -3,6 +3,7 @@ define(['jquery', 'underscore', 'backbone', 'app/views/StargazerView'], function
 
 	var StargazerListView = Backbone.View.extend({
 		tagName: 'ul',
+		className: 'clearfix',
 		render: function() {
 			this.collection.each(function(model) {
 				var stargazerView = new StargazerView({model: model});

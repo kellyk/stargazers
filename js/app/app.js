@@ -4,6 +4,7 @@ define(['jquery', 'underscore', 'backbone', 'app/collections/Repos', 'app/views/
 
 	var App = {
 		init: function() {
+			var self = this;
 			$(document).ready(function() {
 				$('[data-action=search]').focus();
 			});

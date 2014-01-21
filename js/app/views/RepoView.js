@@ -2,8 +2,8 @@ define(['jquery', 'underscore', 'backbone', 'app/views/StargazerListView'], func
 	'use strict';
 
 	var RepoView = Backbone.View.extend({
-		tagName: 'li',
-		className: 'repo',
+		tagName: 'article',
+		className: 'repo clearfix',
 		template: _.template($('#repo').html()),
 
 		initialize: function() {
@@ -11,6 +11,7 @@ define(['jquery', 'underscore', 'backbone', 'app/views/StargazerListView'], func
 		},
 
 		render: function() {
+			console.log("Repo: ", this.model);
 			this.$el.html(this.template(this.model.toJSON()));
 			return this;
 		},
